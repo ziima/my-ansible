@@ -1,0 +1,20 @@
+- name: "Set up home computer"
+  hosts: all
+  roles:
+    - role: system
+      become: yes
+      vars:
+        extra_packages:
+          # System
+          - firmware-iwlwifi  # Drivers for wifi cards
+          - equivs  # Simple tool to make transitional debian packages
+          # Bumblebee (NVIDIA)
+          - mesa-utils  # glxinfo & glxgears to check if GPU is used
+          - binutils
+          - bumblebee-nvidia
+          - primus
+          - libgl1-nvidia-legacy-390xx-glx
+          # Utilities & applications
+          - gnucash
+          - nfs-common  # NFS client
+          - openvpn

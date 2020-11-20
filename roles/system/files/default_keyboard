@@ -1,0 +1,5 @@
+XKBLAYOUT="us,cz"
+XKBVARIANT=",qwerty"
+BACKSPACE="guess"
+XKBMODEL="pc105"
+XKBOPTIONS="grp:alt_shift_toggle,grp_led:scroll,caps:none"

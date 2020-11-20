@@ -1,0 +1,5 @@
+- name: "Set up work computer"
+  hosts: all
+  roles:
+    - role: system
+      become: yes
