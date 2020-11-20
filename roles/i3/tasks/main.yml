@@ -1,0 +1,75 @@
+- name: "Create {{ user }}'s i3 config directories"
+  file:
+    path: "/home/{{ user }}/.config/{{ item }}"
+    state: directory
+  loop:
+    - "i3"
+    - "i3status"
+  become: yes
+  become_user: "{{ user }}"
+
+- name: "Configure {{ user }}'s i3"
+  copy:
+    src: "{{ item.src }}"
+    dest: "/home/{{ user }}/.config/{{ item.dest }}"
+    mode: "{{ item.mode | default('u+r') }}"
+  loop:
+    - {src: "i3_config", dest: "i3/config"}
+    - {src: "i3status", dest: "i3status/config"}
+    - {src: "i3status.sh", dest: "i3status/i3status.sh", mode: "u+x"}
+  become: yes
+  become_user: "{{ user }}"
+  register: i3_config_result
+
+# TODO: Restart other user's i3
+# - name: "Restart {{ user }}'s i3"
+#   command: i3-msg restart --socket "{{ socket }}"
+#   vars:
+#     socket: "{{ lookup('fileglob', '/run/user/{}/i3/ipc-socket.*'.format(ansible_user_uid)) }}"
+#   become: yes
+#   become_user: "{{ user }}"
+#   when: i3_config_result.changed
+
+# Configure terminal
+- name: "Set up {{ user }}'s terminal font size"
+  lineinfile:
+    path: "/home/{{ user }}/.Xresources"
+    regexp: "{{ item.key }}:.*"
+    line: "{{ item.key }}: {{ item.value }}"
+    # Create file, if not exist
+    create: yes
+  loop:
+    - {key: "xterm*faceName", value: "Monospace"}
+    - {key: "xterm*faceSize", value: "10"}
+  become: yes
+  become_user: "{{ user }}"
+  register: xresources_result
+
+- name: "Note to apply Xresources"
+  debug:
+    msg: "Run 'xrdb -merge ~/.Xresources' to apply changes."
+  when: xresources_result.changed
+
+# Load PATH modifications in X sessions
+- name: "Set .xsessionrc to use .profile"
+  file:
+    src: "/home/{{ user }}/.profile"
+    dest: "/home/{{ user }}/.xsessionrc"
+    state: link
+  become: yes
+  become_user: "{{ user }}"
+
+# Set default browser
+- name: "Get default browser for {{ user }}"
+  command: xdg-settings get default-web-browser
+  check_mode: no
+  changed_when: false
+  register: default_browser_result
+  become: yes
+  become_user: "{{ user }}"
+
+- name: "Set default browser for {{ user }}"
+  command: xdg-settings set default-web-browser firefox-esr.desktop
+  when: "'firefox-esr.desktop' != default_browser_result.stdout"
+  become: yes
+  become_user: "{{ user }}"

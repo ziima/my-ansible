@@ -3,3 +3,4 @@
   roles:
     - role: system
       become: yes
+    - role: i3
