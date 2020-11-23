@@ -1,0 +1,3 @@
+# Use ansible user as default and only
+users:
+  - "{{ ansible_user_id }}"

@@ -18,4 +18,4 @@
           - gnucash
           - nfs-common  # NFS client
           - openvpn
-    - role: i3
+    - role: users
