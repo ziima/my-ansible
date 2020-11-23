@@ -15,3 +15,6 @@ ansible-playbook -i hosts_localhost --diff playbooks/home.yml --ask-become-pass 
 ```sh
 ansible-playbook -i hosts_localhost --diff playbooks/home.yml --ask-become-pass
 ```
+
+## Customization ##
+Use `host_vars/localhost.yml` to customize variables for a local station.
