@@ -84,9 +84,10 @@ bindsym $mod+Shift+Right move right
 # Disable splits due to conflict with Vim-style movements
 # split in horizontal orientation
 # bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
-# bindsym $mod+v split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
