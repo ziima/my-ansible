@@ -1,0 +1,16 @@
+# Configure OpenVPN
+
+- name: "Install openvpn package"
+  apt:
+    name: openvpn
+    state: present
+
+- name: "Disable OpenVPN autostart"
+  lineinfile:
+    path: /etc/default/openvpn
+    regexp: '#?AUTOSTART="none"'
+    line: 'AUTOSTART="none"'
+
+- name: "Set up OpenVPN networks"
+  include_tasks: config.yml
+  loop: "{{ openvpn | dict2items }}"

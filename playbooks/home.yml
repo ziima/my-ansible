@@ -17,5 +17,7 @@
           # Utilities & applications
           - gnucash
           - nfs-common  # NFS client
-          - openvpn
     - role: users
+    - role: openvpn
+      become: yes
+      when: openvpn is defined
