@@ -21,3 +21,4 @@
     - role: openvpn
       become: yes
       when: openvpn is defined
+    - role: games

@@ -1,0 +1,21 @@
+- name: "Add i386 architecture for steam"
+  block:
+    - name: "Get other available architectures"
+      command: dpkg --print-foreign-architectures
+      check_mode: no
+      changed_when: false
+      register: dpkg_arch_result
+    - name: "Add i386 architecture"
+      command: dpkg --add-architecture i386
+      when: "'i386' not in dpkg_arch_result.stdout_lines"
+      become: yes
+
+- name: "Install steam"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - steam
+      - libgl1-nvidia-legacy-390xx-glx:i386
