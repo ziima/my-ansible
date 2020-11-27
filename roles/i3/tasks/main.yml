@@ -30,25 +30,13 @@
 #   become_user: "{{ user }}"
 #   when: i3_config_result.changed
 
-# Configure terminal
-- name: "Set up {{ user }}'s terminal font size"
-  lineinfile:
+# Delete old terminal configuration
+- name: "Delete {{ user }}'s .Xresources"
+  file:
     path: "/home/{{ user }}/.Xresources"
-    regexp: "{{ item.key }}:.*"
-    line: "{{ item.key }}: {{ item.value }}"
-    # Create file, if not exist
-    create: yes
-  loop:
-    - {key: "xterm*faceName", value: "Monospace"}
-    - {key: "xterm*faceSize", value: "10"}
+    state: absent
   become: yes
   become_user: "{{ user }}"
-  register: xresources_result
-
-- name: "Note to apply Xresources"
-  debug:
-    msg: "Run 'xrdb -merge ~/.Xresources' to apply changes."
-  when: xresources_result.changed
 
 # Load PATH modifications in X sessions
 - name: "Set .xsessionrc to use .profile"
@@ -71,5 +59,15 @@
 - name: "Set default browser for {{ user }}"
   command: xdg-settings set default-web-browser firefox-esr.desktop
   when: "'firefox-esr.desktop' != default_browser_result.stdout"
+  become: yes
+  become_user: "{{ user }}"
+
+- name: "Disable Alt in {{ user }}'s xfce4-terminal"
+  lineinfile:
+    path: "/home/{{ user }}/.config/xfce4/terminal/terminalrc"
+    regexp: "ShortcutsNoMnemonics"
+    line: "ShortcutsNoMnemonics=TRUE"
+    # Create file, if not exist
+    create: yes
   become: yes
   become_user: "{{ user }}"
