@@ -1,15 +1,33 @@
 # Base system set up
 
-- name: "Set up APT repositories"
+- name: "Delete unused APT source file"
+  file:
+    dest: "/etc/apt/sources.list.d/deb_debian_org_debian.list"
+    state: absent
+
+- name: "Clean up APT repositories"
   apt_repository:
     repo: "{{ item }}"
-    state: present
+    state: absent
   loop:
-    # Debian testing sources
+    # HTTP versions
     - deb http://deb.debian.org/debian testing main contrib non-free
     - deb-src http://deb.debian.org/debian testing main contrib non-free
     - deb http://deb.debian.org/debian-security/ testing-security main contrib non-free
     - deb-src http://deb.debian.org/debian-security/ testing-security main contrib non-free
+
+- name: "Set up APT repositories"
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: "/etc/apt/sources"
+  loop:
+    # Debian testing sources
+    # See https://wiki.debian.org/DebianTesting
+    - deb https://deb.debian.org/debian testing main contrib non-free
+    - deb-src https://deb.debian.org/debian testing main contrib non-free
+    - deb https://deb.debian.org/debian-security/ testing-security main contrib non-free
+    - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free
 
 - name: "Install system packages"
   apt:
