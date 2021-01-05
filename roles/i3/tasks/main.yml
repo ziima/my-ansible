@@ -62,12 +62,17 @@
   become: yes
   become_user: "{{ user }}"
 
-- name: "Disable Alt in {{ user }}'s xfce4-terminal"
+- name: "Configure {{ user }}'s xfce4-terminal"
   lineinfile:
     path: "/home/{{ user }}/.config/xfce4/terminal/terminalrc"
-    regexp: "ShortcutsNoMnemonics"
-    line: "ShortcutsNoMnemonics=TRUE"
+    regexp: "{{ item.key }}"
+    line: "{{ item.key }}={{ item.value }}"
     # Create file, if not exist
     create: yes
+  loop:
+    - {"key": "ShortcutsNoMnemonics", "value": "TRUE"}
+    - {"key": "TitleMode", "value": "TERMINAL_TITLE_REPLACE"}
+    - {"key": "ScrollingLines", "value": "10000"}
+    - {"key": "ScrollingOnOutput", "value": "FALSE"}
   become: yes
   become_user: "{{ user }}"
