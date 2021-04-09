@@ -1,0 +1,28 @@
+# Set up SSHD server
+
+- name: "Install openssh-server"
+  apt:
+    name: "openssh-server"
+    state: present
+  become: yes
+
+- name: "Enable autostart of SSHD"
+  systemd:
+    name: sshd
+    enabled: yes
+    masked: no
+  become: yes
+
+- name: "Set my SSH key"
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    state: present
+    key: "{{ lookup('file', '{{ ansible_user_dir }}/.ssh/id_rsa.pub') }}"
+
+- name: "Copy SSHD config tweaks"
+  template:
+    src: sshd_restrict.conf
+    dest: /etc/ssh/sshd_config.d/restrict.conf
+  notify:
+    - "Restart SSHD"
+  become: yes

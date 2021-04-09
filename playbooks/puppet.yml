@@ -1,0 +1,7 @@
+- name: "Set up puppet computers"
+  hosts: puppets
+  roles:
+    - role: system
+      become: yes
+    - role: sshd
+    - role: users
