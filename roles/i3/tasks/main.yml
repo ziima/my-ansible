@@ -50,7 +50,7 @@
   become: yes
   become_user: "{{ user }}"
 
-# Load PATH modifications in X sessions
+# Load .profile customization in X sessions
 - name: "Set .xsessionrc to use .profile"
   file:
     src: "/home/{{ user }}/.profile"

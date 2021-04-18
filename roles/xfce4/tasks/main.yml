@@ -1,0 +1,17 @@
+- name: "Install xfce4 packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - task-xfce-desktop
+  become: yes
+
+# Load .profile customization in X sessions
+- name: "Set .xsessionrc to use .profile"
+  file:
+    src: "/home/{{ user }}/.profile"
+    dest: "/home/{{ user }}/.xsessionrc"
+    state: link
+  become: yes
+  become_user: "{{ user }}"
