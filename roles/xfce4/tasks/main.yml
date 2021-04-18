@@ -10,8 +10,8 @@
 # Load .profile customization in X sessions
 - name: "Set .xsessionrc to use .profile"
   file:
-    src: "/home/{{ user }}/.profile"
-    dest: "/home/{{ user }}/.xsessionrc"
+    src: "/home/{{ user.name }}/.profile"
+    dest: "/home/{{ user.name }}/.xsessionrc"
     state: link
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"

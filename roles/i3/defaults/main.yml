@@ -1,2 +1,4 @@
 # Use ansible user as default
-user: "{{ ansible_user_id }}"
+user:
+  name: "{{ ansible_user_id }}"
+  data: {}

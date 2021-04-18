@@ -10,73 +10,73 @@
       - xscreensaver
   become: yes
 
-- name: "Create {{ user }}'s i3 config directories"
+- name: "Create {{ user.name }}'s i3 config directories"
   file:
-    path: "/home/{{ user }}/.config/{{ item }}"
+    path: "/home/{{ user.name }}/.config/{{ item }}"
     state: directory
   loop:
     - "i3"
     - "i3status"
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"
 
-- name: "Configure {{ user }}'s i3"
+- name: "Configure {{ user.name }}'s i3"
   copy:
     src: "{{ item.src }}"
-    dest: "/home/{{ user }}/.config/{{ item.dest }}"
+    dest: "/home/{{ user.name }}/.config/{{ item.dest }}"
     mode: "{{ item.mode | default('u+r') }}"
   loop:
     - {src: "i3_config", dest: "i3/config"}
     - {src: "i3status", dest: "i3status/config"}
     - {src: "i3status.sh", dest: "i3status/i3status.sh", mode: "u+x"}
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"
   register: i3_config_result
 
 # TODO: Restart other user's i3
-# - name: "Restart {{ user }}'s i3"
+# - name: "Restart {{ user.name }}'s i3"
 #   command: i3-msg restart --socket "{{ socket }}"
 #   vars:
 #     socket: "{{ lookup('fileglob', '/run/user/{}/i3/ipc-socket.*'.format(ansible_user_uid)) }}"
 #   become: yes
-#   become_user: "{{ user }}"
+#   become_user: "{{ user.name }}"
 #   when: i3_config_result.changed
 
 # Delete old terminal configuration
-- name: "Delete {{ user }}'s .Xresources"
+- name: "Delete {{ user.name }}'s .Xresources"
   file:
-    path: "/home/{{ user }}/.Xresources"
+    path: "/home/{{ user.name }}/.Xresources"
     state: absent
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"
 
 # Load .profile customization in X sessions
 - name: "Set .xsessionrc to use .profile"
   file:
-    src: "/home/{{ user }}/.profile"
-    dest: "/home/{{ user }}/.xsessionrc"
+    src: "/home/{{ user.name }}/.profile"
+    dest: "/home/{{ user.name }}/.xsessionrc"
     state: link
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"
 
 # Set default browser
-- name: "Get default browser for {{ user }}"
+- name: "Get default browser for {{ user.name }}"
   command: xdg-settings get default-web-browser
   check_mode: no
   changed_when: false
   register: default_browser_result
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"
 
-- name: "Set default browser for {{ user }}"
+- name: "Set default browser for {{ user.name }}"
   command: xdg-settings set default-web-browser firefox-esr.desktop
   when: "'firefox-esr.desktop' != default_browser_result.stdout"
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"
 
-- name: "Configure {{ user }}'s xfce4-terminal"
+- name: "Configure {{ user.name }}'s xfce4-terminal"
   lineinfile:
-    path: "/home/{{ user }}/.config/xfce4/terminal/terminalrc"
+    path: "/home/{{ user.name }}/.config/xfce4/terminal/terminalrc"
     regexp: "{{ item.key }}"
     line: "{{ item.key }}={{ item.value }}"
     # Create file, if not exist
@@ -87,4 +87,4 @@
     - {"key": "ScrollingLines", "value": "10000"}
     - {"key": "ScrollingOnOutput", "value": "FALSE"}
   become: yes
-  become_user: "{{ user }}"
+  become_user: "{{ user.name }}"

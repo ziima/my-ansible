@@ -1,22 +1,22 @@
 - name: "Run i3 for each user"
   include_role:
     name: "{{ window_manager | default('i3') }}"
-  loop: "{{ users }}"
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
 
 - name: "Set up .bashrc"
   copy:
     src: bashrc
-    dest: "/home/{{ user }}/.bashrc"
-  loop: "{{ users }}"
+    dest: "/home/{{ user.name }}/.bashrc"
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
 
 - name: "Set up .vimrc"
   copy:
     src: vimrc
-    dest: "/home/{{ user }}/.vimrc"
-  loop: "{{ users }}"
+    dest: "/home/{{ user.name }}/.vimrc"
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
