@@ -57,7 +57,6 @@
       - arandr  # GUI for video (monitors) management
       - curl
       - chromium
-      - libavcodec57 # firefox-esr requires libavcodec57 to play H264 videos, see https://old.reddit.com/r/debian/comments/98chjn/firefox_esr_no_longer_supports_h264/e4jebpf/?st=jnfxvep1&sh=ec386eb1
       - libxml2-utils # xmllint
       - mpv
       - pavucontrol  # GUI for audio management
