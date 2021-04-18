@@ -61,10 +61,14 @@
       - arandr  # GUI for video (monitors) management
       - curl
       - chromium
+      - firefox-esr
       - libxml2-utils # xmllint
       - mpv
       - pavucontrol  # GUI for audio management
       - scrot # Screenshots
+      - webext-ublock-origin-chromium  # uBlock Origin for chromium
+      - webext-ublock-origin-firefox  # uBlock Origin for firefox
+      - yamllint
       # Vim and addons
       - vim-gtk3
       - vim-addon-manager
