@@ -1,3 +1,15 @@
+- name: "Install i3 packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - i3
+      - xfce4-terminal  # Terminal emulator
+      - xss-lock  # To lock screen on suspend
+      - xscreensaver
+  become: yes
+
 - name: "Create {{ user }}'s i3 config directories"
   file:
     path: "/home/{{ user }}/.config/{{ item }}"
