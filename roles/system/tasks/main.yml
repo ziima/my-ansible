@@ -147,10 +147,3 @@
   command: systemctl --global enable redshift
   args:
     creates: /etc/systemd/user/default.target.wants/redshift.service
-
-# Based on https://askubuntu.com/a/1008029
-- name: "Enable controls in xterm"
-  lineinfile:
-    path: /etc/X11/app-defaults/XTerm
-    regexp: "\\*metaSendsEscape: .*"
-    line: "*metaSendsEscape: True"
