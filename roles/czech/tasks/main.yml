@@ -1,0 +1,20 @@
+- name: "Install czech locale packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - chromium-l10n
+      - firefox-esr-l10n-cs
+      - libreoffice-l10n-cs
+
+- name: "Set {{ user }}'s .profile"
+  lineinfile:
+    path: "/home/{{ user }}/.profile"
+    regexp: 'export {{ item }}=.*'
+    line: 'export {{ item }}=cs_CZ.utf8'
+  loop:
+    - 'LANGUAGE'
+    - 'LANG'
+    - 'LC_ALL'

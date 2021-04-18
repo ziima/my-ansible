@@ -20,3 +20,11 @@
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
+
+- name: "Set czech locales"
+  include_role:
+    name: czech
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
+  when: user.data.czech is defined and user.data.czech
