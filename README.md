@@ -7,13 +7,13 @@ My workstation configuration in ansible.
 2. Check actions:
 
 ```sh
-ansible-playbook -i hosts_localhost --diff playbooks/home.yml --ask-become-pass --check
+ansible-playbook -i hosts/localhost.yml --diff playbooks/home.yml --ask-become-pass --check
 ```
 
 3. Run ansible:
 
 ```sh
-ansible-playbook -i hosts_localhost --diff playbooks/home.yml --ask-become-pass
+ansible-playbook -i hosts/localhost.yml --diff playbooks/home.yml --ask-become-pass
 ```
 
 ## Customization ##

@@ -1,5 +1,4 @@
 /playbooks/files
-/host_vars
 /hosts
 !/hosts/localhost.yml
 *.retry
