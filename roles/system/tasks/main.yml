@@ -52,10 +52,10 @@
       - bind9-dnsutils # dig, nslookup
       - deborphan
       - htop
-      - ntp
       - resolvconf
       - rsync
       - screen
+      - systemd-timesyncd # NTP client
       - tree
       # Applications
       - arandr  # GUI for video (monitors) management
