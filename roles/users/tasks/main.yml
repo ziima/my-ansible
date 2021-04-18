@@ -1,6 +1,6 @@
 - name: "Run i3 for each user"
   include_role:
-    name: i3
+    name: "{{ window_manager | default('i3') }}"
   loop: "{{ users }}"
   loop_control:
     loop_var: user
