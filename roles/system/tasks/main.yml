@@ -56,19 +56,12 @@
       # Applications
       - arandr  # GUI for video (monitors) management
       - curl
-      - docker.io # Docker
       - chromium
-      - keepassxc
-      - lastpass-cli # CLI for Lastpass
       - libavcodec57 # firefox-esr requires libavcodec57 to play H264 videos, see https://old.reddit.com/r/debian/comments/98chjn/firefox_esr_no_longer_supports_h264/e4jebpf/?st=jnfxvep1&sh=ec386eb1
       - libxml2-utils # xmllint
       - mpv
-      - pandoc
       - pavucontrol  # GUI for audio management
-      - pidgin
-      - pidgin-privacy-please
       - scrot # Screenshots
-      - thunderbird
       # Vim and addons
       - vim-gtk3
       - vim-addon-manager
@@ -76,29 +69,6 @@
       - vim-fugitive
       - vim-syntastic
       - vim-youcompleteme
-      # Development
-      - bumpversion
-      - git
-      - make
-      # Python
-      - bandit
-      - ipython3
-      - mypy
-      - pydocstyle
-      - python3-flake8
-      - python3-ipdb
-      - python3-isort
-      - python3-pip
-      - tox
-      - twine
-      # LuaTaX
-      - texlive-luatex
-      - texlive-lang-czechslovak
-      - texlive-latex-extra
-      # Televize dependencies
-      - python3-docopt
-      - python3-lxml
-      - python3-m3u8
 
 - name: "Enable locales"
   locale_gen:

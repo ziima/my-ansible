@@ -16,7 +16,17 @@
           - libgl1-nvidia-legacy-390xx-glx
           # Utilities & applications
           - gnucash
+          - keepassxc
+          - lastpass-cli # CLI for Lastpass
           - nfs-common  # NFS client
+          - pidgin
+          - pidgin-privacy-please
+          - thunderbird
+          # Televize dependencies
+          - python3-docopt
+          - python3-lxml
+          - python3-m3u8
+    - role: devel
     - role: users
     - role: openvpn
       become: yes

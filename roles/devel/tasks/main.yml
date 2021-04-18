@@ -1,0 +1,28 @@
+- name: "Install development packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      # Utilities & applications
+      - docker.io # Docker
+      - pandoc
+      # Development
+      - bumpversion
+      - git
+      - make
+      # Python
+      - bandit
+      - ipython3
+      - mypy
+      - pydocstyle
+      - python3-flake8
+      - python3-ipdb
+      - python3-isort
+      - python3-pip
+      - tox
+      - twine
+      # LuaTaX
+      - texlive-luatex
+      - texlive-lang-czechslovak
+      - texlive-latex-extra

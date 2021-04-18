@@ -3,4 +3,5 @@
   roles:
     - role: system
       become: yes
+    - role: devel
     - role: i3
