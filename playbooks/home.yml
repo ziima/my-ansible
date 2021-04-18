@@ -2,7 +2,6 @@
   hosts: all
   roles:
     - role: system
-      become: yes
       vars:
         extra_packages:
           # System
@@ -29,6 +28,5 @@
     - role: devel
     - role: users
     - role: openvpn
-      become: yes
       when: openvpn is defined
     - role: games

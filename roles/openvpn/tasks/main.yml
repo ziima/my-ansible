@@ -4,12 +4,14 @@
   apt:
     name: openvpn
     state: present
+  become: yes
 
 - name: "Disable OpenVPN autostart"
   lineinfile:
     path: /etc/default/openvpn
     regexp: '#?AUTOSTART="none"'
     line: 'AUTOSTART="none"'
+  become: yes
 
 - name: "Set up OpenVPN networks"
   include_tasks: config.yml

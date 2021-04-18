@@ -4,11 +4,13 @@
   file:
     dest: "/etc/apt/sources.list.d/deb_debian_org_debian.list"
     state: absent
+  become: yes
 
 - name: "Clean up APT repositories"
   apt_repository:
     repo: "{{ item }}"
     state: absent
+  become: yes
   loop:
     # HTTP versions
     - deb http://deb.debian.org/debian testing main contrib non-free
@@ -21,6 +23,7 @@
     repo: "{{ item }}"
     state: present
     filename: "/etc/apt/sources"
+  become: yes
   loop:
     # Debian testing sources
     # See https://wiki.debian.org/DebianTesting
@@ -33,6 +36,7 @@
   apt:
     name: "{{ packages + extra_packages }}"
     state: present
+  become: yes
   vars:
     packages:
       # Ansible itself
@@ -72,6 +76,7 @@
 - name: "Enable locales"
   locale_gen:
       name: "{{ item }}"
+  become: yes
   loop:
     - en_DK.UTF-8
     - cs_CZ.UTF-8
@@ -87,6 +92,7 @@
     - name: "Change default locale"
       command: update-locale LANG={{ default_locale|quote }} LANGUAGE={{ default_locale|quote }}
       when: default_locale_result is changed
+      become: yes
   vars:
     default_locale: en_DK.UTF-8
 
@@ -94,25 +100,30 @@
   copy:
     src: default_keyboard
     dest: /etc/default/keyboard
+  become: yes
 
 - name: "Disable etckeeper daily commits"
   lineinfile:
     path: /etc/etckeeper/etckeeper.conf
     regexp: "AVOID_DAILY_AUTOCOMMITS"
     line: "AVOID_DAILY_AUTOCOMMITS=1"
+  become: yes
 
 # Add delay for redshift startup, since it won't start if it's too early.
 - name: "Redshift systemd override directory"
   file:
     path: "/etc/systemd/user/redshift.service.d"
     state: directory
+  become: yes
 - name: "Redshift systemd delay override"
   copy:
     src: "redshift.override.conf"
     dest: "/etc/systemd/user/redshift.service.d/override.conf"
+  become: yes
 
 # systemd module does not work in this case.
 - name: "Enable redshift service for all users"
   command: systemctl --global enable redshift
   args:
     creates: /etc/systemd/user/default.target.wants/redshift.service
+  become: yes
