@@ -4,3 +4,4 @@
     - role: system
     - role: devel
     - role: i3
+    - role: printers

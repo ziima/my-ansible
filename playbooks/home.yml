@@ -30,3 +30,4 @@
     - role: openvpn
       when: openvpn is defined
     - role: games
+    - role: printers
