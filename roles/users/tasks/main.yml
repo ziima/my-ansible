@@ -1,3 +1,27 @@
+- name: "Set up users"
+  user:
+    name: "{{ user.name }}"
+    # Only set password on user creation
+    password: "{{ user.data.password }}"
+    update_password: on_create
+    state: present
+  become: yes
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
+
+- name: "Set up user groups"
+  user:
+    name: "{{ user.name }}"
+    # Additional groups for the user
+    groups: "{{ user.data.groups | default([]) }}"
+    append: yes
+    state: present
+  become: yes
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
+
 - name: "Run i3 for each user"
   include_role:
     name: "{{ window_manager | default('i3') }}"
