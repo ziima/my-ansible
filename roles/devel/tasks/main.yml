@@ -4,12 +4,19 @@
     state: present
   vars:
     packages:
+      # Vim addons
+      - vim-addon-manager
+      - vim-airline
+      - vim-fugitive
+      - vim-syntastic
+      - vim-youcompleteme
       # Utilities & applications
       - docker.io # Docker
+      - libxml2-utils # xmllint
       - pandoc
+      - yamllint
       # Development
       - bumpversion
-      - git
       - make
       # Python
       - bandit

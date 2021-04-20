@@ -33,11 +33,10 @@
   become: yes
   vars:
     packages:
-      # Ansible itself
-      - ansible
+      # Ansible
+      # - ansible - ansible itself is not needed on nodes.
       - python3-apt
-      # Warn in case there is a serious bug in the new version
-      - apt-listbugs
+      - apt-listbugs # Warn in case there is a serious bug in the new version
       # System
       - etckeeper
       - lightdm
@@ -56,20 +55,14 @@
       - curl
       - chromium
       - firefox-esr
-      - libxml2-utils # xmllint
+      - git  # Also used by etckeeper
       - mpv
       - pavucontrol  # GUI for audio management
       - scrot # Screenshots
       - webext-ublock-origin-chromium  # uBlock Origin for chromium
       - webext-ublock-origin-firefox  # uBlock Origin for firefox
-      - yamllint
       # Vim and addons
       - vim-gtk3
-      - vim-addon-manager
-      - vim-airline
-      - vim-fugitive
-      - vim-syntastic
-      - vim-youcompleteme
 
 - name: "Enable locales"
   locale_gen:
