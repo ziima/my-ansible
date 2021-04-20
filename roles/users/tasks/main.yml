@@ -33,6 +33,8 @@
   copy:
     src: bashrc
     dest: "/home/{{ user.name }}/.bashrc"
+    owner: "{{ user.name }}"
+  become: yes
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
@@ -41,6 +43,8 @@
   copy:
     src: vimrc
     dest: "/home/{{ user.name }}/.vimrc"
+    owner: "{{ user.name }}"
+  become: yes
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
