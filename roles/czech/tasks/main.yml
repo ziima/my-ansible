@@ -9,9 +9,9 @@
       - firefox-esr-l10n-cs
       - libreoffice-l10n-cs
 
-- name: "Set {{ user }}'s .profile"
+- name: "Set {{ user.name }}'s .profile"
   lineinfile:
-    path: "/home/{{ user }}/.profile"
+    path: "/home/{{ user.name }}/.profile"
     regexp: 'export {{ item }}=.*'
     line: 'export {{ item }}=cs_CZ.utf8'
   become: yes
