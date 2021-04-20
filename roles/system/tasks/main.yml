@@ -6,23 +6,17 @@
     state: absent
   become: yes
 
-- name: "Clean up APT repositories"
-  apt_repository:
-    repo: "{{ item }}"
-    state: absent
+- name: "Clear APT sources"
+  copy:
+    content: ""
+    dest: /etc/apt/sources.list
   become: yes
-  loop:
-    # HTTP versions
-    - deb http://deb.debian.org/debian testing main contrib non-free
-    - deb-src http://deb.debian.org/debian testing main contrib non-free
-    - deb http://deb.debian.org/debian-security/ testing-security main contrib non-free
-    - deb-src http://deb.debian.org/debian-security/ testing-security main contrib non-free
 
 - name: "Set up APT repositories"
   apt_repository:
     repo: "{{ item }}"
     state: present
-    filename: "/etc/apt/sources"
+    filename: "debian"
   become: yes
   loop:
     # Debian testing sources
