@@ -5,37 +5,19 @@
     mode: '700'
   become: yes
 
-- name: "Copy {{ item.key }} CA"
-  copy:
-    src: "{{ item.value.ca }}"
-    dest: "/etc/openvpn/{{ item.key }}/{{ item.value.ca }}"
-    mode: '600'
-  become: yes
-
-- name: "Copy {{ item.key }} tls_auth"
-  copy:
-    src: "{{ item.value.tls_auth }}"
-    dest: "/etc/openvpn/{{ item.key }}/{{ item.value.tls_auth }}"
-    mode: '600'
-  become: yes
-
-- name: "Copy {{ item.key }} key"
-  copy:
-    src: "{{ item.value.key }}"
-    dest: "/etc/openvpn/{{ item.key }}/{{ item.value.key }}"
-    mode: '600'
-  become: yes
-
-- name: "Copy {{ item.key }} cert"
-  copy:
-    src: "{{ item.value.cert }}"
-    dest: "/etc/openvpn/{{ item.key }}/{{ item.value.cert }}"
-    mode: '600'
-  become: yes
-
 - name: "Create {{ item.key }} OpenVPN config"
   copy:
     src: "{{ item.value.config }}"
     dest: "/etc/openvpn/{{ item.key }}.conf"
     mode: '600'
+  become: yes
+
+- name: "Copy {{ item.key }} files"
+  copy:
+    src: "{{ file }}"
+    dest: "/etc/openvpn/{{ item.key }}/{{ file }}"
+    mode: '600'
+  loop: "{{ item.value.files }}"
+  loop_control:
+    loop_var: file
   become: yes

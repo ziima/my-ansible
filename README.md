@@ -40,10 +40,11 @@ Set openVPN in `host_vars`:
 openvpn:
   red_dwarf:
     config: red_dwarf.conf
-    ca: cacert.pem
-    tls_auth: tls_auth
-    key: kryten-key.pem
-    cert: kryten-cert.pem
+    files:
+     - cacert.pem
+     - tls_auth
+     - kryten-key.pem
+     - kryten-cert.pem
 ```
 
 Put files directly in `playbooks/files` directory.
