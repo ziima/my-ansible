@@ -41,6 +41,7 @@
       - etckeeper
       - lightdm
       - redshift
+      - unattended-upgrades
       # System administration
       - bind9-dnsutils # dig, nslookup
       - deborphan
@@ -56,6 +57,7 @@
       - chromium
       - firefox-esr
       - git  # Also used by etckeeper
+      - libreoffice
       - mpv
       - pavucontrol  # GUI for audio management
       - scrot # Screenshots

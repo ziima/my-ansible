@@ -2,6 +2,7 @@
   apt:
     name: "{{ packages }}"
     state: present
+  become: yes
   vars:
     packages:
       # Vim addons
@@ -12,11 +13,12 @@
       - vim-youcompleteme
       # Utilities & applications
       - docker.io # Docker
+      - docker-compose
       - libxml2-utils # xmllint
       - pandoc
       - yamllint
       # Development
-      - bumpversion
+      # - bumpversion  # Removed from testing
       - make
       # Python
       - bandit
