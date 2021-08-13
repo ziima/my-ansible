@@ -66,6 +66,18 @@
       # Vim and addons
       - vim-gtk3
 
+- name: "Delete useless packages"
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    autoremove: yes
+  become: yes
+  vars:
+    packages:
+      - aptitude
+      - nano
+      # Unused window managers are deleted in their roles.
+
 - name: "Enable locales"
   locale_gen:
       name: "{{ item }}"
