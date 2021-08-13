@@ -17,7 +17,7 @@
   authorized_key:
     user: "{{ ansible_user_id }}"
     state: present
-    key: "{{ lookup('file', '{{ ansible_user_dir }}/.ssh/id_rsa.pub') }}"
+    key: "{{ ssh_key }}"
 
 - name: "Copy SSHD config tweaks"
   template:

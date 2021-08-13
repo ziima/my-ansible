@@ -1,11 +1,21 @@
 - name: "Set up users"
   user:
     name: "{{ user.name }}"
+    state: present
+  become: yes
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
+
+- name: "Set up users passwords"
+  user:
+    name: "{{ user.name }}"
     # Only set password on user creation
     password: "{{ user.data.password }}"
     update_password: on_create
     state: present
   become: yes
+  when: user.data.password is defined
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user

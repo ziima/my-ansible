@@ -2,6 +2,8 @@
   hosts: all
   roles:
     - role: system
+    - role: sshd
     - role: devel
     - role: i3
     - role: printers
+    - role: users
