@@ -25,6 +25,7 @@
           - python3-docopt
           - python3-lxml
           - python3-m3u8
+    - role: notebook
     - role: devel
     - role: users
     - role: openvpn

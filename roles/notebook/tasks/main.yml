@@ -1,0 +1,14 @@
+- name: "Copy monitor setup script"
+  copy:
+    src: monitor-setup
+    dest: /usr/local/bin/monitor-setup
+    mode: 'a+x'
+  become: yes
+
+- name: "Copy udev rules"
+  copy:
+    src: hdmi.rules
+    dest: /etc/udev/rules.d/hdmi.rules
+  notify:
+    - "Reload udev rules"
+  become: yes
