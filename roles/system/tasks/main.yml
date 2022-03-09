@@ -114,16 +114,17 @@
     line: "AVOID_DAILY_AUTOCOMMITS=1"
   become: yes
 
-# Add delay for redshift startup, since it won't start if it's too early.
-- name: "Redshift systemd override directory"
+# DEPRECATED since 3/2022.
+- name: "Delete obsolete redshift systemd override directory"
   file:
-    path: "/etc/systemd/user/redshift.service.d"
-    state: directory
+    path: "/etc/systemd/user/redshift.service.d/override.conf"
+    state: absent
   become: yes
-- name: "Redshift systemd delay override"
+
+- name: "Redshift systemd service"
   copy:
-    src: "redshift.override.conf"
-    dest: "/etc/systemd/user/redshift.service.d/override.conf"
+    src: "redshift.service"
+    dest: "/etc/systemd/user/redshift.service"
   become: yes
 
 # systemd module does not work in this case.
