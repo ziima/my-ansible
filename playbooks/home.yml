@@ -16,7 +16,6 @@
           # Utilities & applications
           - gnucash
           - keepassxc
-          - lastpass-cli # CLI for Lastpass
           - nfs-common  # NFS client
           - pidgin
           - pidgin-privacy-please
