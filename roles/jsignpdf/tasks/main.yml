@@ -1,0 +1,12 @@
+# Jsignpdf dockerfile
+- name: "Create jsignpdf directory"
+  file:
+    path: "/usr/local/share/jsignpdf"
+    state: directory
+  become: yes
+
+- name: "Copy jsignpdf Dockerfile"
+  copy:
+    src: "Dockerfile"
+    dest: "/usr/local/share/jsignpdf"
+  become: yes
