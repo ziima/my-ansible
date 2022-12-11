@@ -41,6 +41,7 @@
       - etckeeper
       - lightdm
       - redshift
+      - rsyslog
       - unattended-upgrades
       # System administration
       - bind9-dnsutils # dig, nslookup
