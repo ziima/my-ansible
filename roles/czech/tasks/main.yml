@@ -15,7 +15,6 @@
     regexp: 'export {{ item }}=.*'
     line: 'export {{ item }}=cs_CZ.utf8'
   become: yes
-  become_user: "{{ user.name }}"
   loop:
     - 'LANGUAGE'
     - 'LANG'

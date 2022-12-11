@@ -13,5 +13,6 @@
     src: "/home/{{ user.name }}/.profile"
     dest: "/home/{{ user.name }}/.xsessionrc"
     state: link
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
   become: yes
-  become_user: "{{ user.name }}"
