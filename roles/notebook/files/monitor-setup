@@ -1,16 +1,50 @@
-#!/bin/sh
-# Define display and user
-export DISPLAY=":0"
-USER="$(who | grep $DISPLAY\) | cut -f 1 -d ' ')"
-export XAUTHORITY=/home/$USER/.Xauthority
+#!/bin/python3
+import re
+from subprocess import run
+
+DISPLAY_RE = re.compile(r'(?P<username>[^ ]+) .*\((?P<display>:[0-9])\)')
+HDMI_RE = re.compile(r'HDMI.* connected')
+
+
+def is_hdmi_connected(username: str, display: str) -> bool:
+    """Return whether HDMI is connected."""
+    xrandr_result = run(['xrandr', '--query'], capture_output=True, check=True, encoding='utf-8',
+                        env={'DISPLAY': display, 'XAUTHORITY': '/home/{}/.Xauthority'.format(username)})
+    return HDMI_RE.search(xrandr_result.stdout) is not None
+
 
 # Get the xrandr setup by `unxrandr` command.
-HDMI_CONNECTED=$(xrandr --query | grep '^HDMI.*\<connected\>')
-if [ -n "$HDMI_CONNECTED" ]; then {
-    # HDMI connected
-    xrandr --output LVDS-1 --primary --mode 1366x768 --pos 1920x0 --rotate normal --output VGA-1 --off --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off
-} else {
-    xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output VGA-1 --off --output HDMI-1 --off --output DP-1 --off
-} fi
+ON_CMD = [
+    'xrandr',
+    '--output', 'LVDS-1', '--primary', '--mode', '1366x768', '--pos', '1920x0', '--rotate', 'normal',
+    '--output', 'VGA-1', '--off',
+    '--output', 'HDMI-1', '--mode', '1920x1080', '--pos', '0x0', '--rotate', 'normal',
+    '--output', 'DP-1', '--off']
+OFF_CMD = [
+    'xrandr',
+    '--output', 'LVDS-1', '--primary', '--mode', '1366x768', '--pos', '0x0', '--rotate', 'normal',
+    '--output', 'VGA-1', '--off',
+    '--output', 'HDMI-1', '--off',
+    '--output', 'DP-1', '--off']
 
-exit 0
+
+def main() -> None:
+    who_result = run(['who'], capture_output=True, check=True, encoding='utf-8')
+    for line in who_result.stdout.splitlines():
+        match = DISPLAY_RE.match(line.strip())
+        if not match:
+            continue
+        username, display = match.group('username'), match.group('display')
+        # Different users see different status.
+        # TODO: Resolve that xrandr returns different statuses for different users.
+        hdmi_connected = is_hdmi_connected(username, display)
+
+        if hdmi_connected:
+            cmd = ON_CMD
+        else:
+            cmd = OFF_CMD
+        run(cmd, check=True, env={'DISPLAY': display, 'XAUTHORITY': '/home/{}/.Xauthority'.format(username)})
+
+
+if __name__ == '__main__':
+    main()
