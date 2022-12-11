@@ -22,7 +22,19 @@
   loop_control:
     loop_var: user
 
-- name: "Run i3 for each user"
+- name: "Create users' $HOME/.config"
+  file:
+    path: "/home/{{ user.name }}/.config"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 0700
+  become: yes
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
+
+- name: "Set up window manager for each user"
   include_role:
     name: "{{ window_manager | default('i3') }}"
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
@@ -43,6 +55,16 @@
   copy:
     src: vimrc
     dest: "/home/{{ user.name }}/.vimrc"
+    owner: "{{ user.name }}"
+  become: yes
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
+
+- name: "Set up redshift.conf"
+  copy:
+    src: redshift.conf
+    dest: "/home/{{ user.name }}/.config/redshift.conf"
     owner: "{{ user.name }}"
   become: yes
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
