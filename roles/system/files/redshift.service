@@ -1,13 +1,16 @@
 [Unit]
 Description=Redshift display colour temperature adjustment
 Documentation=http://jonls.dk/redshift/
-After=display-manager.service
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 # Add delay for redshift startup, since it won't start if it's too early.
 ExecStartPre=/bin/sleep 5
 ExecStart=/usr/bin/redshift
 Restart=always
+# XXX: WantedBy doesn't work for some reason. Use restart once in an hour.
+RestartSec=3600
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
