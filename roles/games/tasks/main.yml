@@ -10,6 +10,16 @@
       when: "'i386' not in dpkg_arch_result.stdout_lines"
       become: yes
 
+- name: "Install nvidia drivers"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - libgl1-nvidia-legacy-390xx-glx:i386
+  when: has_nvidia
+
 - name: "Install steam"
   apt:
     name: "{{ packages }}"
@@ -18,4 +28,3 @@
   vars:
     packages:
       - steam
-      - libgl1-nvidia-legacy-390xx-glx:i386

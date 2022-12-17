@@ -1,0 +1,2 @@
+# Whether the computer has Nvidia graphics card.
+has_nvidia: false
