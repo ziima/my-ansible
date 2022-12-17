@@ -5,3 +5,13 @@
       become: yes
     - role: sshd
     - role: users
+
+- name: "Puppet extra roles"
+  hosts: puppets
+  tasks:
+    - name: "Include extra roles"
+      include_role:
+        name: "{{ role.name }}"
+      loop: "{{ extra_roles | default([]) }}"
+      loop_control:
+        loop_var: role
