@@ -13,6 +13,7 @@
           - bumblebee-nvidia
           - primus
           - libgl1-nvidia-legacy-390xx-glx
+          - nvidia-legacy-390xx-driver
           # Utilities & applications
           - gnucash
           - keepassxc
