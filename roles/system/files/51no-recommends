@@ -1,0 +1,2 @@
+# Do not install recommended packages by default
+APT::Install-Recommends "0";

@@ -1,4 +1,9 @@
 # Base system set up
+- name: "Configure APT"
+  copy:
+    src: 51no-recommends
+    dest: /etc/apt/apt.conf.d/51no-recommends
+  become: yes
 
 - name: "Delete unused APT source file"
   file:
@@ -61,6 +66,7 @@
       - libreoffice
       - mpv
       - pavucontrol  # GUI for audio management
+      - pipx
       - scrot # Screenshots
       - webext-ublock-origin-chromium  # uBlock Origin for chromium
       - webext-ublock-origin-firefox  # uBlock Origin for firefox
