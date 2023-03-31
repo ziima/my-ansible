@@ -27,4 +27,4 @@
   become: yes
   vars:
     packages:
-      - steam
+      - steam-installer
