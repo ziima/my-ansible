@@ -26,10 +26,10 @@
   loop:
     # Debian testing sources
     # See https://wiki.debian.org/DebianTesting
-    - deb https://deb.debian.org/debian testing main contrib non-free
-    - deb-src https://deb.debian.org/debian testing main contrib non-free
-    - deb https://deb.debian.org/debian-security/ testing-security main contrib non-free
-    - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free
+    - deb https://deb.debian.org/debian testing main contrib non-free non-free-firmware
+    - deb-src https://deb.debian.org/debian testing main contrib non-free non-free-firmware
+    - deb https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
+    - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
 
 - name: "Install system packages"
   apt:
