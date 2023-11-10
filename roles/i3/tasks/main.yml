@@ -5,6 +5,7 @@
   vars:
     packages:
       - i3
+      - suckless-tools
       - xfce4-terminal  # Terminal emulator
       - xss-lock  # To lock screen on suspend
       - xscreensaver

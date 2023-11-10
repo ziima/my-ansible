@@ -1,0 +1,14 @@
+- name: "Set up home computer"
+  hosts: all
+  roles:
+    - role: system
+      vars:
+        extra_packages:
+          # System
+          - firmware-iwlwifi  # Drivers for wifi cards
+          - equivs  # Simple tool to make transitional debian packages
+    - role: notebook
+    # - role: devel
+    - role: users
+    # - role: games
+    # - role: printers
