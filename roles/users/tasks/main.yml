@@ -78,3 +78,8 @@
   loop_control:
     loop_var: user
   when: user.data.czech is defined and user.data.czech
+
+- name: "Setup my dotfiles via chezmoi"
+  command: chezmoi init https://github.com/ziima/dotfiles.git
+  args:
+    creates: "/home/{{ user.name }}/.local/share/chezmoi"
