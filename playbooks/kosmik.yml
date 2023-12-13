@@ -1,4 +1,4 @@
-- name: "Set up home computer"
+- name: "Set up kosmik computer"
   hosts: all
   roles:
     - role: system
@@ -8,7 +8,9 @@
           - firmware-iwlwifi  # Drivers for wifi cards
           - equivs  # Simple tool to make transitional debian packages
     - role: notebook
-    # - role: devel
+    - role: devel
     - role: users
+    - role: openvpn
+      when: openvpn is defined
     # - role: games
-    # - role: printers
+    - role: printers
