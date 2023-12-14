@@ -41,36 +41,6 @@
   loop_control:
     loop_var: user
 
-- name: "Set up .bashrc"
-  copy:
-    src: bashrc
-    dest: "/home/{{ user.name }}/.bashrc"
-    owner: "{{ user.name }}"
-  become: yes
-  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
-  loop_control:
-    loop_var: user
-
-- name: "Set up .vimrc"
-  copy:
-    src: vimrc
-    dest: "/home/{{ user.name }}/.vimrc"
-    owner: "{{ user.name }}"
-  become: yes
-  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
-  loop_control:
-    loop_var: user
-
-- name: "Set up redshift.conf"
-  copy:
-    src: redshift.conf
-    dest: "/home/{{ user.name }}/.config/redshift.conf"
-    owner: "{{ user.name }}"
-  become: yes
-  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
-  loop_control:
-    loop_var: user
-
 - name: "Set czech locales"
   include_role:
     name: czech
@@ -78,3 +48,8 @@
   loop_control:
     loop_var: user
   when: user.data.czech is defined and user.data.czech
+
+- name: "Setup my dotfiles for chezmoi"
+  command: chezmoi init https://github.com/ziima/dotfiles.git
+  args:
+    creates: "/home/{{ user.name }}/.local/share/chezmoi"
