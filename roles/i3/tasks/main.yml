@@ -5,6 +5,7 @@
   vars:
     packages:
       - i3
+      - py3status
       - suckless-tools
       - xfce4-terminal  # Terminal emulator
       - xss-lock  # To lock screen on suspend
