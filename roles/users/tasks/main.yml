@@ -53,3 +53,6 @@
   command: chezmoi init https://github.com/ziima/dotfiles.git
   args:
     creates: "/home/{{ user.name }}/.local/share/chezmoi"
+  loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+  loop_control:
+    loop_var: user
