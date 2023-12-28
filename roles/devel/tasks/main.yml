@@ -25,6 +25,7 @@
       - ipython3
       - mypy
       - pydocstyle
+      - python3-build
       - python3-flake8
       - python3-ipdb
       - python3-isort
@@ -35,3 +36,12 @@
       - texlive-luatex
       - texlive-lang-czechslovak
       - texlive-latex-extra
+
+- name: "Install pipx packages"
+  community.general.pipx:
+    name: "{{ item }}"
+    state: "install"
+  loop:
+    - "bump-my-version"
+    - "tox"
+    - "twine"
