@@ -6,13 +6,3 @@
     packages:
       - task-xfce-desktop
   become: yes
-
-# Load .profile customization in X sessions
-- name: "Set .xsessionrc to use .profile"
-  file:
-    src: "/home/{{ user.name }}/.profile"
-    dest: "/home/{{ user.name }}/.xsessionrc"
-    state: link
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-  become: yes
