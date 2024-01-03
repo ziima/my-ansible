@@ -49,10 +49,21 @@
     loop_var: user
   when: user.data.czech is defined and user.data.czech
 
-- name: "Setup my dotfiles for chezmoi"
-  command: chezmoi init https://github.com/ziima/dotfiles.git
-  args:
-    creates: "/home/{{ user.name }}/.local/share/chezmoi"
+# XXX: chezmoi init hangs on prompts
+# - name: "Setup dotfiles repo"
+#   command: chezmoi init --no-tty https://github.com/ziima/dotfiles.git
+#   args:
+#     creates: "/home/{{ user.name }}/.local/share/chezmoi"
+#   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
+#   loop_control:
+#     loop_var: user
+
+- name: "Setup dotfiles repo"
+  git:
+    repo: "https://github.com/ziima/dotfiles.git"
+    dest: "/home/{{ user.name }}/.local/share/chezmoi"
+  become: yes
+  become_user: "{{ user.name }}"
   loop: "{{ users | dict2items(key_name='name', value_name='data') }}"
   loop_control:
     loop_var: user
