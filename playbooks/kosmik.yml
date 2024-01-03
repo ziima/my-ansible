@@ -6,6 +6,7 @@
         extra_packages:
           # System
           - firmware-iwlwifi  # Drivers for wifi cards
+          - eog
           - equivs  # Simple tool to make transitional debian packages
     - role: notebook
     - role: devel
