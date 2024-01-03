@@ -4,22 +4,13 @@
     state: present
   vars:
     packages:
+      - alacritty  # Terminal emulator
       - i3
       - py3status
       - suckless-tools
-      - xfce4-terminal  # Terminal emulator
       - xss-lock  # To lock screen on suspend
       - xscreensaver
   become: yes
-
-# TODO: Restart other user's i3
-# - name: "Restart {{ user.name }}'s i3"
-#   command: i3-msg restart --socket "{{ socket }}"
-#   vars:
-#     socket: "{{ lookup('fileglob', '/run/user/{}/i3/ipc-socket.*'.format(ansible_user_uid)) }}"
-#   become: yes
-#   become_user: "{{ user.name }}"
-#   when: i3_config_result.changed
 
 # Delete old terminal configuration
 - name: "Delete {{ user.name }}'s .Xresources"
