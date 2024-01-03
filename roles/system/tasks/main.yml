@@ -63,6 +63,7 @@
       - chromium
       - firefox-esr
       - git  # Also used by etckeeper
+      - imagemagick
       - libreoffice
       - mpv
       - pavucontrol  # GUI for audio management
