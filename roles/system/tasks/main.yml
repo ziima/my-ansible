@@ -51,6 +51,7 @@
       # System administration
       - bind9-dnsutils # dig, nslookup
       - deborphan
+      - fish  # Shell
       - htop
       - resolvconf
       - rsync

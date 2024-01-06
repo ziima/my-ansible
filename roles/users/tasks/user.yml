@@ -6,6 +6,7 @@
     shell: "{{ user.shell | default('/bin/bash') }}"
     update_password: on_create
     state: present
+  register: user_result
   become: yes
 
 - name: "Set up {{ user.name }} groups"
@@ -39,3 +40,26 @@
     dest: "/home/{{ user.name }}/.local/share/chezmoi"
   become: yes
   become_user: "{{ user.name }}"
+
+- name: "Set up fish"
+  block:
+    - name: "Get fisher plugins"
+      command: fish -c 'fisher list'
+      check_mode: no
+      changed_when: false
+      register: fisher_plugins
+    - name: "Install fisher"
+      get_url:
+        url: https://raw.githubusercontent.com/jorgebucaran/fisher/4.4.4/functions/fisher.fish
+        dest: "/home/{{ user.name }}/.config/fish/functions/fisher.fish"
+        checksum: sha256:949bcff859b140808b154dfbf69aa04d99581ec8ece9747957403e33789a5864
+      when: not 'jorgebucaran/fisher' in fisher_plugins.stdout.split()
+    - name: "Install tide"
+      command: fish -c 'fisher install "ilancosman/tide@v6"'
+      when: not 'ilancosman/tide@v6' in fisher_plugins.stdout.split()
+    - name: "Install z"
+      command: fish -c 'fisher install "jethrokuan/z"'
+      when: not 'jethrokuan/z' in fisher_plugins.stdout.split()
+  become: yes
+  become_user: "{{ user.name }}"
+  when: user_result.shell == '/usr/bin/fish'
