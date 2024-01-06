@@ -14,8 +14,10 @@
       # Utilities & applications
       - docker.io # Docker
       - docker-compose
+      - etherwake  # Wake on LAN
       - libxml2-utils # xmllint
       - pandoc
+      - thunderbird
       - yamllint
       # Development
       # - bumpversion  # Removed from testing

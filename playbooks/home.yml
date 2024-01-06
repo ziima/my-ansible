@@ -18,7 +18,6 @@
           - gnucash
           - keepassxc
           - nfs-common  # NFS client
-          - thunderbird
     - role: notebook
     - role: jsignpdf
     - role: devel

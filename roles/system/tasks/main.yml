@@ -61,6 +61,8 @@
       - arandr  # GUI for video (monitors) management
       - curl
       - chromium
+      - eog  # Eye Of Gnome - display images
+      - evince  # PDF viewer
       - firefox-esr
       - git  # Also used by etckeeper
       - imagemagick

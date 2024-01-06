@@ -4,10 +4,10 @@
     - role: system
       vars:
         extra_packages:
-          # System
-          - firmware-iwlwifi  # Drivers for wifi cards
-          - eog
           - equivs  # Simple tool to make transitional debian packages
+          - firmware-iwlwifi  # Drivers for wifi cards
+          - gnucash
+          - keepassxc
     - role: notebook
     - role: devel
     - role: users
