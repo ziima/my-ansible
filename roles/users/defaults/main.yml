@@ -3,3 +3,5 @@ users:
   "{{ ansible_user_id }}":
     # Make default password unusable
     password: '!'
+
+window_manager: "i3"

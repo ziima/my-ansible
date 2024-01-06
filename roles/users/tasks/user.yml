@@ -1,0 +1,41 @@
+- name: "Set up {{ user.name }}"
+  user:
+    name: "{{ user.name }}"
+    # Only set password on user creation
+    password: "{{ user.data.password }}"
+    shell: "{{ user.shell | default('/bin/bash') }}"
+    update_password: on_create
+    state: present
+  become: yes
+
+- name: "Set up {{ user.name }} groups"
+  user:
+    name: "{{ user.name }}"
+    # Additional groups for the user
+    groups: "{{ user.data.groups | default([]) }}"
+    append: yes
+    state: present
+  become: yes
+
+- name: "Set up window manager for {{ user.name }}"
+  include_role:
+    name: "{{ window_manager }}"
+
+- name: "Set czech locales for {{ user.name }}"
+  include_role:
+    name: czech
+  when: user.data.czech is defined and user.data.czech
+
+# XXX: chezmoi init hangs on prompts
+# - name: "Setup dotfiles repo"
+#   command: chezmoi init --no-tty https://github.com/ziima/dotfiles.git
+#   args:
+#     creates: "/home/{{ user.name }}/.local/share/chezmoi"
+
+# XXX: Do not overwrite remote
+- name: "Setup dotfiles repo"
+  git:
+    repo: "https://github.com/ziima/dotfiles.git"
+    dest: "/home/{{ user.name }}/.local/share/chezmoi"
+  become: yes
+  become_user: "{{ user.name }}"
