@@ -32,6 +32,7 @@
     - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
 
 - name: "Install system packages"
+  # TODO: Add packages to /var/lib/deborphan/keep
   apt:
     name: "{{ packages + extra_packages }}"
     state: present

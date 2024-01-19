@@ -60,6 +60,21 @@
     - name: "Install z"
       command: fish -c 'fisher install "jethrokuan/z"'
       when: not 'jethrokuan/z' in fisher_plugins.stdout.split()
+    - name: "Install fonts for tide"
+      get_url:
+        url: "https://github.com/IlanCosman/tide/blob/assets/fonts/{{ item.name }}?raw=true"
+        dest: "/usr/local/share/fonts/{{ item.name }}"
+        checksum: "{{ item.checksum }}"
+      loop:
+        - {"name": "mesloLGS_NF_regular.ttf", "checksum": "sha256:d97946186e97f8d7c0139e8983abf40a1d2d086924f2c5dbf1c29bd8f2c6e57d"}
+        - {"name": "mesloLGS_NF_bold.ttf", "checksum": "sha256:b6c0199cf7c7483c8343ea020658925e6de0aeb318b89908152fcb4d19226003"}
+        - {"name": "mesloLGS_NF_italic.ttf", "checksum": "sha256:6f357bcbe2597704e157a915625928bca38364a89c22a4ac36e7a116dcd392ef"}
+        - {"name": "mesloLGS_NF_bold_italic.ttf", "checksum": "sha256:56b4131adecec052c4b324efb818dd326d586dbc316fc68f98f1cae2eb8d1220"}
+      register: fonts_result
+      become: yes
+    - name: "Update font cache"
+      command: fc-cache -fv
+      when: fonts_result is changed
   become: yes
   become_user: "{{ user.name }}"
   when: user_result.shell == '/usr/bin/fish'
