@@ -12,14 +12,6 @@
       - xscreensaver
   become: yes
 
-# Delete old terminal configuration
-- name: "Delete {{ user.name }}'s .Xresources"
-  file:
-    path: "/home/{{ user.name }}/.Xresources"
-    state: absent
-  become: yes
-  become_user: "{{ user.name }}"
-
 # Set default browser
 - name: "Get default browser for {{ user.name }}"
   command: xdg-settings get default-web-browser
