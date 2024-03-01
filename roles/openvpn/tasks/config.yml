@@ -4,20 +4,26 @@
     state: directory
     mode: '700'
   become: yes
+  tags:
+    - openvpn
 
 - name: "Create {{ item.key }} OpenVPN config"
   copy:
-    src: "{{ item.value.config }}"
+    src: "{{ item.value.source_dir }}{{ item.value.config }}"
     dest: "/etc/openvpn/{{ item.key }}.conf"
     mode: '600'
   become: yes
+  tags:
+    - openvpn
 
 - name: "Copy {{ item.key }} files"
   copy:
-    src: "{{ file }}"
+    src: "{{ item.value.source_dir }}{{ file }}"
     dest: "/etc/openvpn/{{ item.key }}/{{ file }}"
     mode: '600'
   loop: "{{ item.value.files }}"
   loop_control:
     loop_var: file
   become: yes
+  tags:
+    - openvpn

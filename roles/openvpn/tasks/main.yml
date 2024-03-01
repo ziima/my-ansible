@@ -5,6 +5,8 @@
     name: openvpn
     state: present
   become: yes
+  tags:
+    - openvpn
 
 - name: "Disable OpenVPN autostart"
   lineinfile:
@@ -12,7 +14,11 @@
     regexp: '#?AUTOSTART="none"'
     line: 'AUTOSTART="none"'
   become: yes
+  tags:
+    - openvpn
 
 - name: "Set up OpenVPN networks"
   include_tasks: config.yml
   loop: "{{ openvpn | dict2items }}"
+  tags:
+    - openvpn
