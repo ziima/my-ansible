@@ -3,7 +3,7 @@
     name: "{{ user.name }}"
     # Only set password on user creation
     password: "{{ user.data.password }}"
-    shell: "{{ user.shell | default('/bin/bash') }}"
+    shell: "{{ user.data.shell | default('/bin/bash') }}"
     update_password: on_create
     state: present
   register: user_result
@@ -44,10 +44,20 @@
 - name: "Set up fish"
   block:
     - name: "Get fisher plugins"
-      command: fish -c 'fisher list'
+      command: "fish -c 'fisher list'"
       check_mode: no
       changed_when: false
+      # Ignore error if the fisher isn't installed.
+      ignore_errors: true
       register: fisher_plugins
+    - name: "Create fish directories"
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "/home/{{ user.name }}/.config"
+        - "/home/{{ user.name }}/.config/fish"
+        - "/home/{{ user.name }}/.config/fish/functions"
     - name: "Install fisher"
       get_url:
         url: https://raw.githubusercontent.com/jorgebucaran/fisher/4.4.4/functions/fisher.fish
@@ -77,4 +87,4 @@
       when: fonts_result is changed
   become: yes
   become_user: "{{ user.name }}"
-  when: user_result.shell == '/usr/bin/fish'
+  when: user.data.shell | default('/bin/bash') == '/usr/bin/fish'
