@@ -73,6 +73,7 @@
       - pavucontrol  # GUI for audio management
       - pipx
       - scrot # Screenshots
+      - thunar  # file manager
       - webext-ublock-origin-chromium  # uBlock Origin for chromium
       - webext-ublock-origin-firefox  # uBlock Origin for firefox
       # Vim and addons
