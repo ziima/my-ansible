@@ -3,26 +3,42 @@ import re
 from subprocess import run
 
 DISPLAY_RE = re.compile(r'(?P<username>[^ ]+) .*\((?P<display>:[0-9])\)')
-HDMI_RE = re.compile(r'HDMI.* connected')
+HDMI_RE = re.compile(r'HDMI-1 connected')
+VGA_RE = re.compile(r'VGA-1 connected')
 
 
 def is_hdmi_connected(username: str, display: str) -> bool:
-    """Return whether HDMI is connected."""
+    """Return whether HDMI-1 is connected."""
     xrandr_result = run(['xrandr', '--query'], capture_output=True, check=True, encoding='utf-8',
                         env={'DISPLAY': display, 'XAUTHORITY': '/home/{}/.Xauthority'.format(username)})
     return HDMI_RE.search(xrandr_result.stdout) is not None
 
 
+def is_vga_connected(username: str, display: str) -> bool:
+    """Return whether VGA-1 is connected."""
+    xrandr_result = run(['xrandr', '--query'], capture_output=True, check=True, encoding='utf-8',
+                        env={'DISPLAY': display, 'XAUTHORITY': '/home/{}/.Xauthority'.format(username)})
+    return VGA_RE.search(xrandr_result.stdout) is not None
+
+
 # Get the xrandr setup by `unxrandr` command.
-ON_CMD = [
+HDMI_ON_CMD = [
     'xrandr',
-    '--output', 'LVDS-1', '--primary', '--mode', '1366x768', '--pos', '1920x0', '--rotate', 'normal',
+    '--output', 'LVDS-1', '--primary', '--mode', '1600x900', '--pos', '1920x0', '--rotate', 'normal',
     '--output', 'VGA-1', '--off',
     '--output', 'HDMI-1', '--mode', '1920x1080', '--pos', '0x0', '--rotate', 'normal',
     '--output', 'DP-1', '--off']
+# XXX: mode 1920x1080 is sometimes not visible by xrandr :-/
+# May be solved by https://askubuntu.com/a/918714
+VGA_ON_CMD = [
+    'xrandr',
+    '--output', 'LVDS-1', '--primary', '--mode', '1600x900', '--pos', '1920x0', '--rotate', 'normal',
+    '--output', 'VGA-1', '--mode', '1920x1080', '--pos', '0x0', '--rotate', 'normal',
+    '--output', 'HDMI-1', '--off',
+    '--output', 'DP-1', '--off']
 OFF_CMD = [
     'xrandr',
-    '--output', 'LVDS-1', '--primary', '--mode', '1366x768', '--pos', '0x0', '--rotate', 'normal',
+    '--output', 'LVDS-1', '--primary', '--mode', '1600x900', '--pos', '0x0', '--rotate', 'normal',
     '--output', 'VGA-1', '--off',
     '--output', 'HDMI-1', '--off',
     '--output', 'DP-1', '--off']
@@ -35,12 +51,13 @@ def main() -> None:
         if not match:
             continue
         username, display = match.group('username'), match.group('display')
+
         # Different users see different status.
         # TODO: Resolve that xrandr returns different statuses for different users.
-        hdmi_connected = is_hdmi_connected(username, display)
-
-        if hdmi_connected:
-            cmd = ON_CMD
+        if is_hdmi_connected(username, display):
+            cmd = HDMI_ON_CMD
+        elif is_vga_connected(username, display):
+            cmd = VGA_ON_CMD
         else:
             cmd = OFF_CMD
         run(cmd, check=True, env={'DISPLAY': display, 'XAUTHORITY': '/home/{}/.Xauthority'.format(username)})
