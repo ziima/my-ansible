@@ -79,7 +79,7 @@
       # Vim and addons
       - vim-gtk3
 
-- name: "Delete useless packages"
+- name: "Delete useless and dangerous packages"
   apt:
     name: "{{ packages }}"
     state: absent
@@ -89,7 +89,9 @@
     packages:
       - aptitude
       - nano
-      # Unused window managers are deleted in their roles.
+      # CUPS browsed is full of vulnerabilities.
+      # https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/
+      - cups-browsed
 
 - name: "Enable locales"
   locale_gen:
