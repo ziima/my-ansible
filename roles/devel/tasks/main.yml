@@ -9,8 +9,6 @@
       - vim-addon-manager
       - vim-airline
       - vim-fugitive
-      - vim-syntastic
-      - vim-youcompleteme
       # Utilities & applications
       - docker.io # Docker
       - docker-compose
@@ -23,14 +21,11 @@
       # - bumpversion  # Removed from testing
       - make
       # Python
-      - bandit
       - ipython3
       - mypy
       - pydocstyle
       - python3-build
-      - python3-flake8
       - python3-ipdb
-      - python3-isort
       - python3-pip
       - tox
       - twine
