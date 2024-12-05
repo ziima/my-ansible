@@ -18,18 +18,10 @@
   become: yes
 
 - name: "Set up APT repositories"
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-    filename: "debian"
+  template:
+    dest: "/etc/apt/sources.list.d/debian.list"
+    src: "debian.list"
   become: yes
-  loop:
-    # Debian testing sources
-    # See https://wiki.debian.org/DebianTesting
-    - deb https://deb.debian.org/debian testing main contrib non-free non-free-firmware
-    - deb-src https://deb.debian.org/debian testing main contrib non-free non-free-firmware
-    - deb https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
-    - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
 
 - name: "Install system packages"
   # TODO: Add packages to /var/lib/deborphan/keep
@@ -52,7 +44,8 @@
       - unattended-upgrades
       # System administration
       - bind9-dnsutils # dig, nslookup
-      - deborphan
+      # Removed from unstable, maybe no longer maintained.
+      # - deborphan
       - fish  # Shell
       - htop
       - network-manager-applet  # Applet for network-manager
