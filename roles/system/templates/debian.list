@@ -1,0 +1,6 @@
+# See https://wiki.debian.org/DebianUnstable
+deb https://deb.debian.org/debian unstable main contrib non-free non-free-firmware
+deb-src https://deb.debian.org/debian unstable main contrib non-free non-free-firmware
+# There's no security for unstable
+# deb https://deb.debian.org/debian-security/ unstable-security main contrib non-free non-free-firmware
+# deb-src https://deb.debian.org/debian-security/ unstable-security main contrib non-free non-free-firmware
