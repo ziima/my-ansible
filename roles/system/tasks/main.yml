@@ -177,7 +177,7 @@
       set_fact:
         chezmoi_deb_asset: "{{ asset.browser_download_url }}"
         chezmoi_deb_asset_name: "{{ asset.name }}"
-      when: "{{ asset.name.endswith('amd64.deb') }}"
+      when: asset.name.endswith('amd64.deb')
       loop: "{{ chezmoi_release_result.json[0].assets }}"
       loop_control:
         loop_var: asset
