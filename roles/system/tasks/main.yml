@@ -24,18 +24,11 @@
     - apt
 
 - name: "Set up APT repositories"
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-    filename: "debian"
+  # Use template instead of apt_repository to delete all other sources.
+  template:
+    src: debian.list
+    dest: /etc/apt/sources.list.d/debian.list
   become: yes
-  loop:
-    # Debian testing sources
-    # See https://wiki.debian.org/DebianTesting
-    - deb https://deb.debian.org/debian testing main contrib non-free non-free-firmware
-    - deb-src https://deb.debian.org/debian testing main contrib non-free non-free-firmware
-    - deb https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
-    - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
   tags:
     - apt
 

@@ -1,0 +1,9 @@
+# Debian sources
+# See https://wiki.debian.org/DebianTesting
+# See https://wiki.debian.org/DebianUnstable
+deb https://deb.debian.org/debian {{ distribution }} main contrib non-free non-free-firmware
+deb-src https://deb.debian.org/debian {{ distribution }} main contrib non-free non-free-firmware
+{% if distribution != 'unstable' %}
+deb https://deb.debian.org/debian-security/ {{ distribution }}-security main contrib non-free non-free-firmware
+deb-src https://deb.debian.org/debian-security/ {{ distribution }}-security main contrib non-free non-free-firmware
+{% endif %}
