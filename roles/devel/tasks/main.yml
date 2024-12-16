@@ -10,11 +10,14 @@
       - vim-airline
       - vim-fugitive
       # Utilities & applications
+      - direnv  # Custom environment variables per-directory
       - docker.io # Docker
       - docker-compose
       - etherwake  # Wake on LAN
+      - glab  # Gitlab CLIent
       - libxml2-utils # xmllint
       - pandoc
+      - pspg  # PostgreSQL pager
       - thunderbird
       - yamllint
       # Development
