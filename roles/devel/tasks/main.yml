@@ -12,6 +12,7 @@
       # Utilities & applications
       - direnv  # Custom environment variables per-directory
       - docker.io # Docker
+      - docker-cli  # Docker CLIent
       - docker-compose
       - etherwake  # Wake on LAN
       - glab  # Gitlab CLIent
