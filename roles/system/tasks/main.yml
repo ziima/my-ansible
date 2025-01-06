@@ -45,6 +45,7 @@
       - apt-listbugs # Warn in case there is a serious bug in the new version
       # System
       - etckeeper
+      - fonts-font-awesome  # Font with emoticons
       - lightdm
       - redshift
       - rsyslog
@@ -54,6 +55,7 @@
       - deborphan
       - fish  # Shell
       - htop
+      - network-manager-applet  # Applet for network-manager
       - resolvconf
       - rsync
       - screen
