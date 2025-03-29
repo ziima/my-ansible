@@ -34,6 +34,7 @@
       - tox
       - twine
       # LuaTaX
+      - texlive-extra-utils  # pdfjam
       - texlive-luatex
       - texlive-lang-czechslovak
       - texlive-latex-extra

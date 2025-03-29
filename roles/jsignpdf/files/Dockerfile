@@ -2,7 +2,7 @@
 #
 # Usage:
 # Build the image
-# docker build -t jsignpdf:latest /usr/local/share/jsignpdf/Dockerfile
+# docker build -t jsignpdf:latest /usr/local/share/jsignpdf/
 # # Start the jsignpdf
 # docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/credentials:/app/credentials:ro -v /tmp/workdir:/app/workdir --rm jsignpdf:latest
 #

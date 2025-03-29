@@ -33,13 +33,13 @@
 #   args:
 #     creates: "/home/{{ user.name }}/.local/share/chezmoi"
 
-- name: "Setup dotfiles repo"
-  git:
-    repo: "https://github.com/ziima/dotfiles.git"
-    dest: "/home/{{ user.name }}/.local/share/chezmoi"
-    update: false
-  become: yes
-  become_user: "{{ user.name }}"
+# # XXX: Do not overwrite remote
+# - name: "Setup dotfiles repo"
+#   git:
+#     repo: "https://github.com/ziima/dotfiles.git"
+#     dest: "/home/{{ user.name }}/.local/share/chezmoi"
+#   become: yes
+#   become_user: "{{ user.name }}"
 
 - name: "Set up fish"
   block:
