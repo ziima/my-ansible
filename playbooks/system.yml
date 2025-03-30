@@ -1,0 +1,5 @@
+- name: "Set up system roles"
+  hosts: all
+  roles:
+    - role: system
+    - role: sshd

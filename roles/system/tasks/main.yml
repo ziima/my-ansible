@@ -4,18 +4,24 @@
     src: 51no-recommends
     dest: /etc/apt/apt.conf.d/51no-recommends
   become: yes
+  tags:
+    - apt
 
 - name: "Delete unused APT source file"
   file:
     dest: "/etc/apt/sources.list.d/deb_debian_org_debian.list"
     state: absent
   become: yes
+  tags:
+    - apt
 
 - name: "Clear APT sources"
   copy:
     content: ""
     dest: /etc/apt/sources.list
   become: yes
+  tags:
+    - apt
 
 - name: "Set up APT repositories"
   apt_repository:
@@ -30,6 +36,8 @@
     - deb-src https://deb.debian.org/debian testing main contrib non-free non-free-firmware
     - deb https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
     - deb-src https://deb.debian.org/debian-security/ testing-security main contrib non-free non-free-firmware
+  tags:
+    - apt
 
 - name: "Install system packages"
   # TODO: Add packages to /var/lib/deborphan/keep
@@ -52,7 +60,7 @@
       - unattended-upgrades
       # System administration
       - bind9-dnsutils # dig, nslookup
-      - deborphan
+      #- deborphan  # deborphan is probably no longer maintained
       - fish  # Shell
       - htop
       - network-manager-applet  # Applet for network-manager

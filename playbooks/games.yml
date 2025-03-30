@@ -1,0 +1,4 @@
+- name: "Set up games roles"
+  hosts: all
+  roles:
+    - role: games

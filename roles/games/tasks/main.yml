@@ -10,6 +10,15 @@
       when: "'i386' not in dpkg_arch_result.stdout_lines"
       become: yes
 
+    # Run apt update to fetch packages for i386, after it's been added.
+    - name: "Run apt update"
+      apt:
+        update_cache: yes
+      when: "'i386' not in dpkg_arch_result.stdout_lines"
+      become: yes
+  tags:
+    - multiarch
+
 - name: "Install nvidia drivers"
   apt:
     name: "{{ packages }}"
@@ -29,6 +38,8 @@
     packages:
       # Minecraft deps
       - default-jre
+      # This package needs to be installed manually. It's replaced by libgdk-pixbuf-2.0-0 and libgdk-pixbuf-xlib-2.0-0,
+      # but minecraft deps are not updated.
       - libgdk-pixbuf2.0-0
       # Steam
       - steam-installer
@@ -37,7 +48,7 @@
   get_url:
     url: https://launcher.mojang.com/download/Minecraft.deb
     dest: /tmp/minecraft.deb
-    checksum: sha256:b8764d9bfbcbe69582aaa269469bebaddb49dda44e747b7030dd8560667ae5c8
+    checksum: sha256:de839e5221b215b2c9d39ec9d9dcac9b143ed43e994e1160a31f7f81c91be9ee
 
 - name: "Install minecraft"
   command: dpkg -i /tmp/minecraft.deb

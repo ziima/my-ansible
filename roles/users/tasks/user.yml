@@ -82,6 +82,7 @@
         - {"name": "mesloLGS_NF_bold_italic.ttf", "checksum": "sha256:56b4131adecec052c4b324efb818dd326d586dbc316fc68f98f1cae2eb8d1220"}
       register: fonts_result
       become: yes
+      become_user: "root"
     - name: "Update font cache"
       command: fc-cache -fv
       when: fonts_result is changed
