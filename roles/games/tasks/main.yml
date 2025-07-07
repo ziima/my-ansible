@@ -26,7 +26,12 @@
   become: yes
   vars:
     packages:
-      - libgl1-nvidia-legacy-390xx-glx:i386
+      - linux-headers-amd64  # required for DKMS to work
+      - libegl-nvidia0:i386
+      - libgl1-nvidia-glvnd-glx:i386
+      - libglx-nvidia0:i386
+      # For old NVIDIA cards:
+      # - libgl1-nvidia-legacy-390xx-glx:i386
   when: has_nvidia
 
 - name: "Install game packages"
