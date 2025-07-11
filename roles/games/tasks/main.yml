@@ -18,6 +18,7 @@
       become: yes
   tags:
     - multiarch
+    - steam
 
 - name: "Install nvidia drivers"
   apt:
@@ -33,8 +34,23 @@
       # For old NVIDIA cards:
       # - libgl1-nvidia-legacy-390xx-glx:i386
   when: has_nvidia
+  tags:
+    - steam
+    - minecraft
 
-- name: "Install game packages"
+- name: "Install steam packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      # Steam
+      - steam-installer
+  tags:
+    - steam
+
+- name: "Install minecraft dependencies"
   apt:
     name: "{{ packages }}"
     state: present
@@ -46,17 +62,21 @@
       # This package needs to be installed manually. It's replaced by libgdk-pixbuf-2.0-0 and libgdk-pixbuf-xlib-2.0-0,
       # but minecraft deps are not updated.
       - libgdk-pixbuf2.0-0
-      # Steam
-      - steam-installer
+  tags:
+    - minecraft
 
 - name: "Download minecraft.deb"
   get_url:
     url: https://launcher.mojang.com/download/Minecraft.deb
     dest: /tmp/minecraft.deb
     checksum: sha256:de839e5221b215b2c9d39ec9d9dcac9b143ed43e994e1160a31f7f81c91be9ee
+  tags:
+    - minecraft
 
 - name: "Install minecraft"
   command: dpkg -i /tmp/minecraft.deb
   args:
     creates: /usr/bin/minecraft-launcher
   become: yes
+  tags:
+    - minecraft

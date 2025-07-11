@@ -1,0 +1,4 @@
+- name: "Extras for notebooks"
+  hosts: all
+  roles:
+    - role: notebook

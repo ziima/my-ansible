@@ -27,7 +27,6 @@
       # Python
       - ipython3
       - mypy
-      - pydocstyle
       - python3-build
       - python3-ipdb
       - python3-pip

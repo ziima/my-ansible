@@ -1,0 +1,4 @@
+- name: "Set up jsignpdf"
+  hosts: all
+  roles:
+    - role: jsignpdf

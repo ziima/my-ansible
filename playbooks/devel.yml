@@ -1,0 +1,4 @@
+- name: "Extras for development"
+  hosts: all
+  roles:
+    - role: devel
