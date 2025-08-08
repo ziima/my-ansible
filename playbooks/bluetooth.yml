@@ -1,0 +1,4 @@
+- name: "Set up bluetooth"
+  hosts: all
+  roles:
+    - role: bluetooth

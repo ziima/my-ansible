@@ -1,0 +1,13 @@
+# Bluetooth: https://wiki.debian.org/BluetoothUser
+# Bluetooth audio: https://wiki.debian.org/BluetoothUser/a2dp#PipeWire
+- name: "Install system packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      # Packages for sound over bluetooth
+      - bluez-alsa-utils
+      - libspa-0.2-bluetooth
+      - pipewire-audio

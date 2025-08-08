@@ -26,3 +26,4 @@
       when: openvpn is defined
     - role: games
     - role: printers
+    - role: bluetooth
