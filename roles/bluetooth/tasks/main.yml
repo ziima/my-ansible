@@ -11,3 +11,10 @@
       - bluez-alsa-utils
       - libspa-0.2-bluetooth
       - pipewire-audio
+
+- name: "Disable bluetooth by default"
+  lineinfile:
+    path: /etc/bluetooth/main.conf
+    regexp: "AutoEnable"
+    line: "AutoEnable=false"
+  become: yes
