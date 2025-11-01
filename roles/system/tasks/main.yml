@@ -55,7 +55,9 @@
       - bind9-dnsutils # dig, nslookup
       #- deborphan  # deborphan is probably no longer maintained
       - fish  # Shell
+      - gvfs-fuse  # Filesystem mounts
       - htop
+      - mtp-tools  # Mount mobile phones
       - network-manager-applet  # Applet for network-manager
       - resolvconf
       - rsync
