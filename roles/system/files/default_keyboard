@@ -4,7 +4,7 @@
 
 XKBMODEL="pc105"
 XKBLAYOUT="us,cz"
-XKBVARIANT=",qwerty"
+XKBVARIANT=",coder"
 XKBOPTIONS="grp:alt_shift_toggle,grp_led:scroll,caps:none"
 
 BACKSPACE="guess"
