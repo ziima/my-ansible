@@ -79,8 +79,6 @@
       - pipx
       - scrot # Screenshots
       - thunar  # file manager
-      - webext-ublock-origin-chromium  # uBlock Origin for chromium
-      - webext-ublock-origin-firefox  # uBlock Origin for firefox
       # Vim and addons
       - vim-gtk3
 
@@ -97,6 +95,9 @@
       # CUPS browsed is full of vulnerabilities.
       # https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/
       - cups-browsed
+      # uBlock is obsolete in chromium. Use Ghostery instead.
+      - webext-ublock-origin-chromium  # uBlock Origin for chromium
+      - webext-ublock-origin-firefox  # uBlock Origin for firefox
 
 - name: "Enable locales"
   locale_gen:
