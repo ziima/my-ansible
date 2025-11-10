@@ -3,8 +3,8 @@
 # Consult the keyboard(5) manual page.
 
 XKBMODEL="pc105"
-XKBLAYOUT="us,cz"
-XKBVARIANT=",coder"
+XKBLAYOUT="cz"
+XKBVARIANT="coder"
 XKBOPTIONS="grp:alt_shift_toggle,grp_led:scroll,caps:none"
 
 BACKSPACE="guess"
