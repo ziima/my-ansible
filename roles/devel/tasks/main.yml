@@ -19,6 +19,7 @@
       - libxml2-utils # xmllint
       - pandoc
       - pspg  # PostgreSQL pager
+      - shellcheck
       - thunderbird
       - yamllint
       # Development
