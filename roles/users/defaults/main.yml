@@ -1,7 +1,14 @@
-# Use ansible user as default and only
+# Use ansible user as default
+
+# Each user may have following attributes:
+# - password - hashed password, only set on user's creation
+# - shell - shell the user uses
+# - groups - additional groups the user will be member of
+# - czech - whether the user uses Czech locales
 users:
   "{{ ansible_facts['user_id'] }}":
     # Make default password unusable
     password: '!'
+
 
 window_manager: "i3"

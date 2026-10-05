@@ -2,7 +2,7 @@
   user:
     name: "{{ user.name }}"
     # Only set password on user creation
-    password: "{{ user.data.password }}"
+    password: "{{ user.data.password | default('!') }}"
     shell: "{{ user.data.shell | default('/bin/bash') }}"
     update_password: on_create
     state: present
@@ -67,9 +67,9 @@
     - name: "Install tide"
       command: fish -c 'fisher install "ilancosman/tide@v6"'
       when: not 'ilancosman/tide@v6' in fisher_plugins.stdout.split()
-    - name: "Install z"
-      command: fish -c 'fisher install "jethrokuan/z"'
-      when: not 'jethrokuan/z' in fisher_plugins.stdout.split()
+    - name: "Uninstall z"
+      command: fish -c 'fisher remove "jethrokuan/z"'
+      when: "'jethrokuan/z' in fisher_plugins.stdout.split()"
     - name: "Install fonts for tide"
       get_url:
         url: "https://github.com/IlanCosman/tide/blob/assets/fonts/{{ item.name }}?raw=true"

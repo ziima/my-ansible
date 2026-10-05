@@ -64,6 +64,7 @@
       - screen
       - systemd-timesyncd # NTP client
       - tree
+      - zoxide  # z command, smart cd
       # Applications
       - arandr  # GUI for video (monitors) management
       - curl
