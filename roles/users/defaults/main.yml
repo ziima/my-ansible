@@ -1,6 +1,6 @@
 # Use ansible user as default and only
 users:
-  "{{ ansible_user_id }}":
+  "{{ ansible_facts['user_id'] }}":
     # Make default password unusable
     password: '!'
 

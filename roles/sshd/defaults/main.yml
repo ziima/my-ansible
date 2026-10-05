@@ -1,2 +1,2 @@
 # SSH key
-ssh_key: "{{ lookup('file', '{{ ansible_user_dir }}/.ssh/id_rsa.pub') }}"
+ssh_key: "{{ lookup('file', '{{ ansible_facts['user_dir'] }}/.ssh/id_rsa.pub') }}"
