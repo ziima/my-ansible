@@ -55,11 +55,13 @@
       - bind9-dnsutils # dig, nslookup
       #- deborphan  # deborphan is probably no longer maintained
       - fish  # Shell
+      - fzf  # Fuzzy finder
       - gvfs-fuse  # Filesystem mounts
       - htop
       - mtp-tools  # Mount mobile phones
       - network-manager-applet  # Applet for network-manager
       - resolvconf
+      - ripgrep  # Fast recursive grep
       - rsync
       - screen
       - systemd-timesyncd # NTP client
