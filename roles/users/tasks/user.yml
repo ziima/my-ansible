@@ -70,6 +70,10 @@
     - name: "Uninstall z"
       command: fish -c 'fisher remove "jethrokuan/z"'
       when: "'jethrokuan/z' in fisher_plugins.stdout.split()"
+    - name: "Clean up fish z data"
+      file:
+        path: "/home/{{ user.name }}/.local/share/z"
+        state: absent
     - name: "Install fonts for tide"
       get_url:
         url: "https://github.com/IlanCosman/tide/blob/assets/fonts/{{ item.name }}?raw=true"
